@@ -33,4 +33,12 @@ public class ReservationRepository {
     public Reservation save(Reservation reservation){
         return ReservationCrudRepository.save(reservation);
     }
+    
+    public void delete(Reservation reservation){
+        ReservationCrudRepository.delete(reservation);
+    }
+    
+    public void deleteById(Integer id){
+        ReservationCrudRepository.deleteById(id);
+    }
 }

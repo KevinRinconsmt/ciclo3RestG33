@@ -33,4 +33,12 @@ public class ClientRepository {
     public Client save(Client client){
         return ClientCrudRepository.save(client);
     }
+    
+    public void delete(Client client){
+        ClientCrudRepository.delete(client);
+    }
+    
+    public void deleteById(Integer id){
+        ClientCrudRepository.deleteById(id);
+    }
 }

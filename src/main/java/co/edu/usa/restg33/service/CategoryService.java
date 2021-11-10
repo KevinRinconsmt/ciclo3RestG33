@@ -43,6 +43,33 @@ public class CategoryService {
         }
     }
     
+    public Category update (Category category){
+        if (category.getId()!=null) {
+            Optional<Category> comprobacion = CategoryRepository.getCategory(category.getId());
+            if (comprobacion.isPresent()) {
+                if (category.getName()!=null) {
+                    comprobacion.get().setName(category.getName());
+                }
+                if (category.getDescription()!=null) {
+                    comprobacion.get().setDescription(category.getDescription());
+                }
+                if (category.getQuadbikes()!=null) {
+                    comprobacion.get().setQuadbikes(category.getQuadbikes());
+                }
+                
+                return CategoryRepository.save(comprobacion.get());
+            }
+        }
+        return category;
+    }
     
+    public boolean deleteCategory(int id){
+        Optional<Category> category = CategoryRepository.getCategory(id);
+        if (category.isPresent()) {
+            CategoryRepository.delete(category.get());
+            return true;
+        }
+        return false;
+    }
     
 }

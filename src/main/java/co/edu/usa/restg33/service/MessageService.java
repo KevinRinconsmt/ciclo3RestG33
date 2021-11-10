@@ -35,11 +35,41 @@ public class MessageService {
             return messageRepository.save(message);
         }else{
             Optional<Message> paux = messageRepository.getMessage(message.getIdMessage());
-            if (paux.isPresent()) {
+            if (!paux.isPresent()) {
                 return messageRepository.save(message);
             }else{
                 return message;
             }
         }
     }
+    
+    public Message update (Message message){
+        if (message.getIdMessage()!=null) {
+            Optional<Message> comprobacion = messageRepository.getMessage(message.getIdMessage());
+            if (comprobacion.isPresent()) {
+                if (message.getMessageText()!=null) {
+                    comprobacion.get().setMessageText(message.getMessageText());
+                }
+                if (message.getClient()!=null) {
+                    comprobacion.get().setClient(message.getClient());
+                }
+                if (message.getQuadbike()!=null) {
+                    comprobacion.get().setQuadbike(message.getQuadbike());
+                }
+                
+                return messageRepository.save(comprobacion.get());
+            }
+        }
+        return message;
+    }
+    
+    public boolean deleteMessage(int id){
+        Optional<Message> message = messageRepository.getMessage(id);
+        if (message.isPresent()) {
+            messageRepository.delete(message.get());
+            return true;
+        }
+        return false;
+    }
+
 }

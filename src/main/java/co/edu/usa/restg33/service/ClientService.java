@@ -35,11 +35,49 @@ public class ClientService {
             return clientRepository.save(client);
         }else{
             Optional<Client> paux = clientRepository.getClient(client.getIdClient());
-            if (paux.isPresent()) {
+            if (!paux.isPresent()) {
                 return clientRepository.save(client);
             }else{
                 return client;
             }
         }
+    }
+    
+    public Client update (Client client){
+        if (client.getIdClient()!=null) {
+            Optional<Client> comprobacion = clientRepository.getClient(client.getIdClient());
+            if (comprobacion.isPresent()) {
+                if (client.getName()!=null) {
+                    comprobacion.get().setName(client.getName());
+                }
+                if (client.getEmail()!=null) {
+                    comprobacion.get().setEmail(client.getEmail());
+                }
+                if (client.getPassword()!=null) {
+                    comprobacion.get().setPassword(client.getPassword());
+                }
+                if (client.getAge()!=null) {
+                    comprobacion.get().setAge(client.getAge());
+                }
+                if (client.getMessages()!=null) {
+                    comprobacion.get().setMessages(client.getMessages());
+                }
+                if (client.getReservations()!=null) {
+                    comprobacion.get().setReservations(client.getReservations());
+                }
+                
+                return clientRepository.save(comprobacion.get());
+            }
+        }
+        return client;
+    }
+    
+    public boolean deleteClient(int id){
+        Optional<Client> client = clientRepository.getClient(id);
+        if (client.isPresent()) {
+            clientRepository.delete(client.get());
+            return true;
+        }
+        return false;
     }
 }

@@ -34,4 +34,12 @@ public class QuadbikeRepository {
         return QuadbikeCrudRepository.save(quadbike);
     }
     
+    public void delete(Quadbike quadbike){
+        QuadbikeCrudRepository.delete(quadbike);
+    }
+    
+    public void deleteById(Integer id){
+        QuadbikeCrudRepository.deleteById(id);
+    }
+    
 }
