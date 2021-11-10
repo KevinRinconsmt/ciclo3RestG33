@@ -47,19 +47,19 @@ public class MessageController {
     }
     
     @GetMapping("/{id}")
-    public Optional<Quadbike> getCategoria(@PathVariable("id") int quadbikeId) {
-        return quadbikeService.getQuadbike(quadbikeId);
+    public Optional<Message> getCategoria(@PathVariable("id") int messageId) {
+        return messageService.getMessage(messageId);
     }
     
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
-    public Quadbike update(@RequestBody Quadbike quadbike) {
-        return quadbikeService.update(quadbike);
+    public Message update(@RequestBody Message message) {
+        return messageService.update(message);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public boolean delete(@PathVariable("id") int quadbikeId) {
-        return quadbikeService.deleteQuadbike(quadbikeId);
+    public boolean delete(@PathVariable("id") int messageId) {
+        return messageService.deleteMessage(messageId);
     }
 }
