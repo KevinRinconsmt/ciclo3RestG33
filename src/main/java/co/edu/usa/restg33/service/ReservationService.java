@@ -19,17 +19,34 @@ import org.springframework.stereotype.Service;
 @Service
 public class ReservationService {
     
+    /**
+     * 
+     */
     @Autowired
     private ReservationRepository reservationRepository;
     
+    /**
+     * 
+     * @return 
+     */
     public List<Reservation> getAll(){
         return reservationRepository.getAll();
     }
     
+    /**
+     * 
+     * @param id
+     * @return 
+     */
     public Optional<Reservation> getReservation (int id){
         return reservationRepository.getReservation(id);
     }
     
+    /**
+     * 
+     * @param reservation
+     * @return 
+     */
     public Reservation save(Reservation reservation){
         if (reservation.getIdReservation()==null) {
             return reservationRepository.save(reservation);
@@ -43,6 +60,11 @@ public class ReservationService {
         }
     }
     
+    /**
+     * 
+     * @param reservation
+     * @return 
+     */
     public Reservation update (Reservation reservation){
         if (reservation.getIdReservation()!=null) {
             Optional<Reservation> comprobacion = reservationRepository.getReservation(reservation.getIdReservation());
@@ -72,8 +94,13 @@ public class ReservationService {
         return reservation;
     }
     
-    public boolean deleteReservation(int id){
-        Optional<Reservation> reservation = reservationRepository.getReservation(id);
+    /**
+     * 
+     * @param id
+     * @return 
+     */
+    public boolean deleteReservation(int reservationId){
+        Optional<Reservation> reservation = reservationRepository.getReservation(reservationId);
         if (reservation.isPresent()) {
             reservationRepository.delete(reservation.get());
             return true;
