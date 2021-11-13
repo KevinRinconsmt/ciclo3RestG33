@@ -6,6 +6,8 @@
 package co.edu.usa.restg33.web;
 
 import co.edu.usa.restg33.model.Reservation;
+import co.edu.usa.restg33.reports.CounterClient;
+import co.edu.usa.restg33.reports.StatusReservation;
 import co.edu.usa.restg33.service.ReservationService;
 import java.util.List;
 import java.util.Optional;
@@ -61,5 +63,21 @@ public class ReservationController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public boolean delete(@PathVariable("id") int reservationId) {
         return reservationService.deleteReservation(reservationId);
+    }
+    
+    @GetMapping("/report-status")
+    public StatusReservation getReservationStatusRepory(){
+        return reservationService.getReservationStatusReport();
+    }
+    
+    @GetMapping("/report-dates/{dateOne}/{dateTwo}")
+    public List<Reservation> getReservationReportDates(@PathVariable("dateOne") String
+            dateOne, @PathVariable("dateTwo") String dateTwo){
+        return reservationService.getReservationPeriod(dateOne, dateTwo);
+    }
+    
+    @GetMapping("/report-clients")
+    public List<CounterClient> getClients (){
+        return reservationService.getTopClient();
     }
 }
